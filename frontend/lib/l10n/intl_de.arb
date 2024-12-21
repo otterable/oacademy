@@ -1,0 +1,34 @@
+{
+  "@@locale": "de",
+  "appTitle": "SpeachMe",
+  "login": "Anmelden",
+  "loginWithGoogle": "Mit Google anmelden",
+  "description": "Stimmungskompass Wissensdatenbank",
+  "searchHint": "Präsentationen suchen...",
+  "unauthorizedAccess": "Unbefugter Zugriff!",
+  "signInCanceled": "Anmeldung abgebrochen.",
+  "loginFailed": "Anmeldung fehlgeschlagen: {error}",
+  "@loginFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "description": "Die Fehlermeldung zur Anzeige."
+      }
+    }
+  },
+  "uploadPresentation": "Präsentation hochladen",
+  "uploadSuccessful": "Upload erfolgreich!",
+  "uploadFailed": "Upload fehlgeschlagen!",
+  "noFileSelected": "Keine Datei ausgewählt.",
+  "categories": "Kategorien",
+  "addCategory": "Kategorie hinzufügen",
+  "createCategory": "Neue Kategorie erstellen",
+  "deleteCategory": "Kategorie löschen",
+  "cancel": "Abbrechen",
+  "create": "Erstellen",
+  "delete": "Löschen",
+  "assignToCategory": "Zu Kategorie zuweisen",
+  "selectCategory": "Kategorie auswählen",
+  "assign": "Zuweisen",
+  "stimmungskompassDescription": "Stimmungskompass Wissensdatenbank"
+}

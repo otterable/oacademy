@@ -1,0 +1,52 @@
+# pubspec.yaml
+
+name: frontend
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Required dependencies
+  cupertino_icons: ^1.0.8
+  google_sign_in: ^6.2.0
+  http: ^1.2.2
+  file_picker: ^8.1.4
+  carousel_slider: ^5.0.0 # For image carousels
+  provider: ^6.0.0 # For state management
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.19.0 # For localization
+  responsive_builder: ^0.7.1 # For responsive design
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  intl_utils: ^2.5.0 # For localization code generation
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Bold.ttf
+        - asset: fonts/Roboto-Italic.ttf
+        - asset: fonts/Roboto-BoldItalic.ttf
+  assets:
+    - assets/logo.png
+
+flutter_intl:
+  enabled: true
+  class_name: S
+  main_locale: en
+  arb_dir: lib/l10n
+  output_dir: lib/generated
