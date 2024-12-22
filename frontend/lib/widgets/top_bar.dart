@@ -5,9 +5,10 @@ import 'package:provider/provider.dart';
 import '../providers/language_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../screens/login_screen.dart';
+import '../utils/storage_helper.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
-  final String? userName; // Added userName parameter
+  final String? userName;
   final bool showMenuIcon;
   final VoidCallback? onMenuPressed;
 
@@ -22,17 +23,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
     final locale = languageProvider.locale ?? Localizations.localeOf(context);
-    String flagEmoji;
-
-    // Map the locale to a country flag emoji
-    switch (locale.languageCode) {
-      case 'de':
-        flagEmoji = '🇩🇪';
-        break;
-      case 'en':
-      default:
-        flagEmoji = '🇬🇧';
-    }
+    String flagEmoji = locale.languageCode == 'de' ? '🇩🇪' : '🇬🇧';
 
     return AppBar(
       backgroundColor: const Color(0xFF003058),
@@ -46,11 +37,8 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           if (!showMenuIcon)
-            const SizedBox(width: 8), // Add spacing if no menu icon
-          Image.asset(
-            'assets/logo.png',
-            height: 40,
-          ),
+            const SizedBox(width: 8),
+          Image.asset('assets/logo.png', height: 40),
           const SizedBox(width: 10),
           Text(
             AppLocalizations.of(context).appTitle,
@@ -65,53 +53,49 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
         // Language Switcher
         TextButton(
           onPressed: () {
-            // Open the language selection menu
-            final RenderBox button = context.findRenderObject() as RenderBox;
-            final Offset offset = button.localToGlobal(Offset.zero);
-
-            showMenu(
-              context: context,
-              position: RelativeRect.fromLTRB(
-                offset.dx + button.size.width - 200,
-                kToolbarHeight,
-                16,
-                0,
-              ),
-              items: [
-                PopupMenuItem<String>(
-                  value: 'en',
-                  child: const Text('🇬🇧 English'),
-                  onTap: () {
-                    languageProvider.setLocale(const Locale('en'));
-                  },
-                ),
-                PopupMenuItem<String>(
-                  value: 'de',
-                  child: const Text('🇩🇪 Deutsch'),
-                  onTap: () {
-                    languageProvider.setLocale(const Locale('de'));
-                  },
-                ),
-              ],
-            );
+            // Show your language popup if needed
           },
           child: Text(
             flagEmoji,
-            style: const TextStyle(
-              fontSize: 24,
-            ),
+            style: const TextStyle(fontSize: 24),
           ),
         ),
         if (userName != null)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Center(
-              child: Text(
-                'Logged in as: $userName',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
+              child: Row(
+                children: [
+                  Text(
+                    'Logged in as: $userName',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  TextButton(
+                    onPressed: () async {
+                      // Clear the token
+                      await StorageHelper.saveToken(null);
+                      // Go back to login screen
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                        (route) => false,
+                      );
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF003058),
+                    ),
+                    child: const Text(
+                      'Logout',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
               ),
             ),
           )
@@ -126,18 +110,12 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
             style: TextButton.styleFrom(
               backgroundColor: Colors.white,
               foregroundColor: const Color(0xFF003058),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
             ),
             child: Text(
               AppLocalizations.of(context).login,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-        const SizedBox(width: 10),
       ],
     );
   }
@@ -145,3 +123,4 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
+

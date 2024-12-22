@@ -1,9 +1,7 @@
-# pubspec.yaml
-
 name: frontend
 description: "A new Flutter project."
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -13,24 +11,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  # Required dependencies
   cupertino_icons: ^1.0.8
   google_sign_in: ^6.2.0
   http: ^1.2.2
   file_picker: ^8.1.4
-  carousel_slider: ^5.0.0 # For image carousels
-  provider: ^6.0.0 # For state management
+  carousel_slider: ^5.0.0
+  provider: ^6.0.0
   flutter_localizations:
     sdk: flutter
-  intl: ^0.19.0 # For localization
-  responsive_builder: ^0.7.1 # For responsive design
+  intl: ^0.19.0
+  responsive_builder: ^0.7.1
+  shared_preferences: ^2.0.17
+  url_launcher: 6.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  intl_utils: ^2.5.0 # For localization code generation
+  intl_utils: ^2.5.0
 
 flutter:
   uses-material-design: true

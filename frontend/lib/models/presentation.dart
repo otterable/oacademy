@@ -6,7 +6,7 @@ class Presentation {
   final String category;
   final int views;
   final String uploadDate;
-  final String imageUrl; // Added field
+  final String imageUrl; // Actually the direct file link
 
   Presentation({
     required this.id,
@@ -14,7 +14,7 @@ class Presentation {
     required this.category,
     required this.views,
     required this.uploadDate,
-    required this.imageUrl, // Initialize in constructor
+    required this.imageUrl,
   });
 
   factory Presentation.fromJson(Map<String, dynamic> json) {
@@ -23,8 +23,11 @@ class Presentation {
       title: json['title'] as String,
       category: json['category'] as String,
       views: json['views'] as int,
-      uploadDate: DateTime.parse(json['upload_date'] as String).toLocal().toString().split(' ')[0], // Formatting date
-      imageUrl: json['image_url'] as String, // Ensure this field exists in your backend
+      uploadDate: DateTime.parse(json['upload_date'] as String)
+          .toLocal()
+          .toString()
+          .split(' ')[0],
+      imageUrl: json['image_url'] as String,
     );
   }
 }

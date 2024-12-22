@@ -1,11 +1,8 @@
 # app.py
-
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from flask_login import LoginManager, UserMixin
-from google.oauth2 import id_token
-from google.auth.transport import requests
+from flask_login import LoginManager
 import os
 import logging
 
@@ -28,7 +25,7 @@ logging.basicConfig(level=logging.DEBUG)
 # Google OAuth Client Config
 GOOGLE_CLIENT_ID = "695509729214-orede17jk35rvnou5ttbk4d6oi7oph2i.apps.googleusercontent.com"
 
-# Import models
+# Import models here *after* db is defined
 from models import User, Presentation
 
 # Console Debug: Flask initialized
@@ -39,8 +36,10 @@ import views
 
 # Create all tables within app context
 with app.app_context():
+    # Create upload folder if it doesn't exist
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
+
     db.create_all()
     logging.debug("Database tables created for User and Presentation.")
 
